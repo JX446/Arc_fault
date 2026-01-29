@@ -17,4 +17,5 @@ tvmc compile `
   .\model.onnx `
   -o artifacts_c28/mod.a `
   --cross-compiler="${CGT_ROOT}\bin\cl2000.exe" `
-  --cross-compiler-options="$env:CL2000_OPTIONS"
+  --cross-compiler-options="$env:CL2000_OPTIONS" `
+  --desired-layout=NCHW:NCHW
