@@ -1,0 +1,20 @@
+依次在终端执行以下命令
+# 清空旧值
+$env:CL2000_OPTIONS = ""
+
+# 定义真实路径（请根据你的系统修改）
+$CGT_ROOT      = "C:\ti\gct"                          # 确保这是 cl2000.exe 所在的 CGT 根目录
+$C2000WARE     = "C:\ti\C2000Ware_6_00_01_00"
+$DEVICE        = "f28p55x"                            # 替换为你的芯片型号
+
+# 构建选项：使用单引号包裹整个字符串，避免 PowerShell 提前展开或转义错误
+$env:CL2000_OPTIONS = "--float_support=fpu32 --abi=eabi -O3 --opt_for_speed=5 --c99 -v28 -ml -mt --gen_func_subsections -I`"$CGT_ROOT\include`" -I`"$C2000WARE\device_support\$DEVICE\common\include`" -I`"$C2000WARE\driverlib\$DEVICE\driverlib`" -I."
+
+# 构建
+tvmc compile `
+  --target="c, ti-npu" `
+  --target-c-mcpu=c28 `
+  .\model.onnx `
+  -o artifacts_c28/mod.a `
+  --cross-compiler="${CGT_ROOT}\bin\cl2000.exe" `
+  --cross-compiler-options="$env:CL2000_OPTIONS"

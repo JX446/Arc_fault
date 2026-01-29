@@ -73,3 +73,5 @@ docs/_build/
 # pyenv
 .python-version
 *.zip
+*.onnx
+model_convert/tvm_models
