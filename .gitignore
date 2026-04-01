@@ -76,3 +76,4 @@ docs/_build/
 *.onnx
 model_convert/tvm_models
 *.h5
+*.txt
