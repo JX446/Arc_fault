@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-c = 8
+c = 1
 k = 8
 
 class Model(nn.Module):
@@ -15,11 +15,11 @@ class Model(nn.Module):
         x = self.layer1(x)
         return x
 
-model = Model().to(memory_format=torch.channels_last)
+model = Model().to('cpu')
 model.eval()
 batch_size = 1
 seq_length = 256
-dummy_input = torch.randn(batch_size, c, 16, 64)
+dummy_input = torch.randn(batch_size, c, 64, 16).to(memory_format=torch.channels_last)
 
 
 # 导出模型
